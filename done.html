@@ -15,6 +15,7 @@
     <div class="container">
         <h1 id="title" class="text-center" style="font-weight: bold;">Fast Math</h1>
         <h2>You Made It!</h2>
+        <p style="font-size: 1em;">Score: <span id="score">0%</span></p>
 
         <!-- user answers here -->
         <div class="row text-center">
@@ -47,12 +48,15 @@
 
         $(document).ready(function() {
             $("#begin").focus()
+            let q_correct = 0 
+
             var questions = JSON.parse(localStorage.getItem("latest_questions"));
             var html_of_table = "";
             questions.forEach(element => {
                 let first_col = ""
                 if(element.correct_answer == element.user_answer) {
                     first_col = element.q_as_str + " = " + element.user_answer
+                    q_correct+=1;
                 }
                 else {
                     first_col = element.q_as_str + " &#8800; " + element.user_answer
@@ -66,6 +70,7 @@
                                 .replace("FIRST_COLUMN", first_col).replace("SECOND_COLUMN", second_col)
 
             });
+            $("#score").text(Number((q_correct/questions.length)*100).toFixed(2)+"%")
             $("#exercise_results").append(html_of_table)
         });
     </script>
