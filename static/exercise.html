@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+    <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/main.css">
+    <title>Fast Math</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+</head>
+<body>        
+    <div class="container">
+        <h1 id="title" class="text-center" style="font-weight: bold;">Fast Math</h1>
+
+        <div class="row">
+            <div class="col text-right">
+                <p id="question">a x a</p>
+            </div>
+
+            <div class="col-xs-1 text-center">
+                <p>=</p>
+            </div>
+        
+            <div class="col text-left">
+                <p><input id="answer" type="tel"><p>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <p style="font-size: 1em" id="bigscreenonly">Press the Next button or the enter key on your keboard to answer.</p>
+            <p style="font-size: 1em">Answered <span id="answered">0</span> of <span id="totalqs">0</span></p>
+        </div>
+
+        <div class="text-center">
+            <button id="next">Next</button>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+
+    var current_exercise = {
+        questions: new Array(),        
+    };
+    var user_config = JSON.parse(localStorage.getItem("fastmath_user_config"));
+
+    function displayQ(q) {
+        $("#question").text(q.q_as_str)
+    }
+
+    function getA() {
+        return $("#answer").val()
+    }
+
+    function clearA() {
+        $("#answer").val("")
+    }
+
+    function randRange(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    function generateQ(min_num, max_num) {
+        let n1 = randRange(min_num, max_num);
+        let n2 = randRange(min_num, max_num);
+
+        let q = {
+            operand1: n1,
+            operand2: n2,
+            q_as_str: n1 + " x " + n2,
+            correct_answer: n1*n2,
+            user_answer: null,
+            answered_at: null,
+            asked_at: null,
+            secs_to_answer: null,
+        }
+
+        return q
+    }
+
+    function askQ() {
+        let current_q = generateQ(
+            user_config.min_num, 
+            user_config.max_num);
+        current_exercise.questions.push(current_q)
+        displayQ(current_q);
+        current_q.asked_at = Date.now();
+    }
+
+    function nextQ() {
+        let user_answer = getA();
+        if(user_answer.length == 0) {/*didn't answer*/return}
+        $("#answered").text(current_exercise.questions.length)
+        // get prev Q answer
+        let lastQ = current_exercise.questions[current_exercise.questions.length-1]; 
+        lastQ.user_answer = user_answer;
+        lastQ.answered_at = Date.now();
+        lastQ.secs_to_answer = (lastQ.answered_at - lastQ.asked_at)/1000
+        clearA()
+
+        if (current_exercise.questions.length == user_config.q_count) {
+            localStorage.setItem("latest_questions", JSON.stringify(current_exercise.questions))
+            window.location.href = "/static/done.html"
+            return
+        }
+        // ask next Q
+        askQ()
+    }
+
+    $(document).ready(function() {
+        $("#totalqs").text(user_config.q_count)
+        askQ()
+        // saw on stackoverflow to bring into focus and bring mobile keyboard. half-works
+        setTimeout(function(){ 
+            $("#answer").focus()
+        },0);
+    });
+
+    $('#answer').keypress(function(event){
+        
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if(keycode == '13'){
+            nextQ();
+        }
+    });
+
+    $("#next").click(function(event){
+        nextQ();
+        $("#answer").focus()
+    });
+
+    </script>
+
+   <script src="/static/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+</body>
+</html>

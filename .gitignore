@@ -13,3 +13,6 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# from https://superuser.com/questions/1585088/access-denied-removing-debug-bin-in-visual-studio-code
+*__

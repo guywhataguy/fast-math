@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+    <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/main.css">
+    <title>Fast Math</title>
+    <script src="/static/jquery-3.1.1.slim.min.js"></script>
+</head>
+<body>        
+    <div class="container">
+        <h1 id="title" class="text-center" style="font-weight: bold;">Fast Math</h1>
+        <h2>You Made It!</h2>
+
+        <!-- user answers here -->
+        <div class="row text-center">
+            <div class="col">Question</div>
+            <div class="col">Time</div>
+        </div>
+
+        <div id="exercise_results">
+        <!-- 
+            <div class="row text-center">
+            <div class="col">A x B = C</div>
+            <div class="col">23.3s</div>
+            </div>
+         -->
+        </div>
+        
+        <br />
+        <br />
+        <br />
+        
+        <p style="font-size: 1em">Back to <a href="/static/index.html">settings</a></p>
+        <div class="text-center">
+            <a href="/static/exercise.html"><button id="begin">Continue</button></a> 
+        </div>
+        
+    </div>
+    
+    <script type="text/javascript">
+
+
+        $(document).ready(function() {
+            $("#begin").focus()
+            var questions = JSON.parse(localStorage.getItem("latest_questions"));
+            var html_of_table = "";
+            questions.forEach(element => {
+                let first_col = ""
+                if(element.correct_answer == element.user_answer) {
+                    first_col = element.q_as_str + " = " + element.user_answer
+                }
+                else {
+                    first_col = element.q_as_str + " &#8800; " + element.user_answer
+                    + " (answer is " + element.correct_answer + ")";
+                }
+                let second_col = element.secs_to_answer + "s"
+                // console.log(first_col + " | " + second_col)
+                html_of_table += ('<div class="row text-center">' +
+                                 '<div class="col">FIRST_COLUMN</div>' +
+                                '<div class="col">SECOND_COLUMN</div> </div>')
+                                .replace("FIRST_COLUMN", first_col).replace("SECOND_COLUMN", second_col)
+
+            });
+            $("#exercise_results").append(html_of_table)
+        });
+    </script>
+
+<script src="/static/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+    <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/main.css">
+    <title>Fast Math</title>
+    <script src="/static/jquery-3.1.1.slim.min.js"></script>
+</head>
+<body>        
+    <div class="container">
+        <h1 id="title" class="text-center" style="font-weight: bold;">Fast Math</h1>
+        <h2>Welcome to Fast Math!</h2>
+        <p style="font-size: 1em">Test and train your quick math skills.</p>
+    
+        <div class="text-center">
+            <a href=><button id="begin">Begin</button></a> 
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+
+    // if have settings already, load them
+
+    // save settings when clicking next
+    $("#begin").click(function(event){
+        var user_config = { 
+            q_count: 5,
+            min_num: 0,
+            max_num: 12
+        }
+        
+        localStorage.setItem("fastmath_user_config", JSON.stringify(user_config))
+        window.location.href = "/static/exercise.html"
+        return false;
+    });      
+    </script>
+    
+
+   <script src="/static/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+</body>
+</html>
