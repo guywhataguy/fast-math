@@ -70,7 +70,7 @@
                                 .replace("FIRST_COLUMN", first_col).replace("SECOND_COLUMN", second_col)
 
             });
-            $("#score").text(Number((q_correct/questions.length)*100).toFixed(2)+"%")
+            $("#score").text(Number((q_correct/questions.length)*100).toFixed(0)+"%")
             $("#exercise_results").append(html_of_table)
         });
     </script>
