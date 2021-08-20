@@ -54,9 +54,11 @@
             var html_of_table = "";
             questions.forEach(element => {
                 let first_col = ""
+                let current_answer_correct = false
                 if(element.correct_answer == element.user_answer) {
                     first_col = element.q_as_str + " = " + element.user_answer
                     q_correct+=1;
+                    current_answer_correct = true;
                 }
                 else {
                     first_col = element.q_as_str + " &#8800; " + element.user_answer
@@ -64,11 +66,18 @@
                 }
                 let second_col = element.secs_to_answer + "s"
                 // console.log(first_col + " | " + second_col)
-                html_of_table += ('<div class="row text-center">' +
+                let current_html_table_entry = ('<div class="row text-center CLASS">' +
                                  '<div class="col">FIRST_COLUMN</div>' +
                                 '<div class="col">SECOND_COLUMN</div> </div>')
-                                .replace("FIRST_COLUMN", first_col).replace("SECOND_COLUMN", second_col)
-
+                                .replace("FIRST_COLUMN", first_col).replace("SECOND_COLUMN", second_col);
+                if (!current_answer_correct) {
+                    current_html_table_entry = current_html_table_entry.replace("CLASS", "wrong");
+                }
+                if (current_answer_correct && element.secs_to_answer > 2) {
+                    current_html_table_entry = current_html_table_entry.replace("CLASS", "slow");
+                }
+                current_html_table_entry = current_html_table_entry.replace("CLASS", "");
+                html_of_table += current_html_table_entry;
             });
             $("#score").text(Number((q_correct/questions.length)*100).toFixed(0)+"%")
             $("#exercise_results").append(html_of_table)

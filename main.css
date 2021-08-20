@@ -35,3 +35,11 @@ p {
 @media only screen and (max-width: 760px) {
     #bigscreenonly { display: none; }
 }
+
+.slow {
+    background-color: rgba(255, 247, 124, 0.5);
+}
+
+.wrong {
+    background-color: rgba(255, 0, 0, 0.42)
+}
