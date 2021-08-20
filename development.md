@@ -19,5 +19,5 @@ I created this project to familiarize myself with JavaScript and HTML, and becau
 - [ ] support testing multiplication
 - [ ] support testing division
 - [ ] enable configuration of questions asked (operators and number range)
-- [ ] mark slow and wrong answers in a different color when reviewing
+- [x] mark slow and wrong answers in a different color when reviewing
 - [ ] remember slow and wrong answers, and ask them again if have back-to-back testing
