@@ -11,7 +11,7 @@ func main() {
 	})
 
 	fs := http.FileServer(http.Dir("static/"))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	http.Handle("/fast-math/", http.StripPrefix("/fast-math/", fs))
 
 	http.ListenAndServe(":80", nil)
 }

@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/static/bootstrap-4.3.1-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/main.css">
+    <link rel="stylesheet" href="/fast-math/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/fast-math/main.css">
     <title>Fast Math</title>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 </head>
@@ -101,7 +101,7 @@
 
         if (current_exercise.questions.length == user_config.q_count) {
             localStorage.setItem("latest_questions", JSON.stringify(current_exercise.questions))
-            window.location.href = "/static/done.html"
+            window.location.href = "/fast-math/done.html"
             return
         }
         // ask next Q
@@ -132,6 +132,6 @@
 
     </script>
 
-   <script src="/static/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+   <script src="/fast-math/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 </body>
 </html>
